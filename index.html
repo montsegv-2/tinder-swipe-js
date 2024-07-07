@@ -24,7 +24,7 @@
         </article>
       </div>
       <footer>
-        <button class="is-refresh" aria-label="undo"></button>
+        <button class="is-undo" aria-label="undo"></button>
         <button class="is-remove is-big" aria-label="remove"></button>
         <button class="is-star" aria-label="star"></button>
         <button class="is-fav is-big" aria-label="fav"></button>
@@ -98,10 +98,33 @@
   }
 
   footer button {
+    background: url("./tinder-icons.webp") no-repeat;
+    background-position: 0px 0px;
+    background-size: 175px;
     height: 32px;
     width: 32px;
     border-radius: 50%;
-    border: 1px solid #ccc;
+    border: 0;
+    cursor: pointer;
+    transition: scale 0.3s ease;
+  }
+
+  footer button:hover {
+    scale: 1.4;
+  }
+
+  footer button.is-big {
+    background-size: 250px;
+    width: 48px;
+    height: 48px;
+  }
+
+  footer button.is-undo {
+    background-position: -140px;
+  }
+
+  footer button.is-undo {
+    background-position: -140px 0;
   }
 
   .cards {
