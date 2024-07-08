@@ -180,3 +180,48 @@
     font-weight: 400;
   }
 </style>
+
+<script>
+  let isAnimating = false;
+  let pullDeltaX = 0; //distancia que la card se esta arrastrando
+
+  const startDrag = (event) => {
+    if (isAnimating) return;
+
+    //get the first article element
+    const currentCard = event.target.closest("article");
+    if (!actualCard) return;
+
+    //get initial position of mouse of finger
+    const startX = event.pageX ?? event.touches[0].pageX;
+
+    //listen the mouse and touch movemenets
+    document.addEventListener("mousedown", onMove);
+    document.addEventListener("mouseup", onEnd);
+
+    document.addEventListener("touchmove", onMove, { passive: true });
+    document.addEventListener("touchend", onEnd, { passive: true });
+
+    const onMove = (event) => {
+      //current position of mouse or finger
+      const currentX = event.pageX ?? event.touches[0].pageX;
+      //the distance between the initial and current position
+      pullDeltaX = currentX - startX;
+      //No distance traveled
+      if (pullDeltaX === 0) return;
+      //Change the flag to indicate we are animating
+      isAnimating = true;
+      //Calculate the rotation of the card using the distance
+      const deg = pullDeltaX / 10;
+      //Apply the transformation to the card
+      currentCard.style.transform = `translateX(${pullDeltaX}px) rotate(${deg}deg)`;
+      //Change the cursor to grabbing
+      currentCard.style.cursor = "grabbing";
+    };
+
+    function onEnd(event) {}
+  };
+
+  document.addEventListener("mousedown", startDrag);
+  document.addEventListener("touchstart", startDrag, { passive: true });
+</script>
